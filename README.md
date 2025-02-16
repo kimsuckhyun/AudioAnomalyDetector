@@ -1,8 +1,3 @@
-아래는 파일 구조를 포함하여 정리한 README 예시입니다. 필요에 따라 수정해서 사용하세요.
-
----
-
-```markdown
 # AudioAnomalyDetector
 
 An end-to-end solution for detecting anomalies in industrial machine sounds. This project utilizes advanced machine learning methods to analyze acoustic signals, aiming to improve fault detection and maintenance efficiency.
@@ -142,7 +137,3 @@ streamlit run streamlit_app.py
 - 대용량 중간 산출물(예: pickle 파일 등)은 필요시 `.gitignore`에 추가하여 Git에 포함되지 않도록 관리하는 것이 좋습니다.
 - Git history에서 대용량 파일을 제거할 때는 Git LFS나 BFG Repo-Cleaner를 사용하여 기록을 재작성해야 합니다.
 ```
-
----
-
-이 README 파일을 프로젝트의 `README.md`에 복사해서 사용하면 됩니다. 필요에 따라 경로나 설명을 수정하세요.
