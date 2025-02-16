@@ -136,4 +136,3 @@ streamlit run streamlit_app.py
 - YAML 파일에 설정된 경로(예: base_directory, pickle_directory 등)가 실제 디렉토리 구조와 일치하는지 확인하세요.
 - 대용량 중간 산출물(예: pickle 파일 등)은 필요시 `.gitignore`에 추가하여 Git에 포함되지 않도록 관리하는 것이 좋습니다.
 - Git history에서 대용량 파일을 제거할 때는 Git LFS나 BFG Repo-Cleaner를 사용하여 기록을 재작성해야 합니다.
-```
