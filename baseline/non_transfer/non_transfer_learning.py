@@ -1,4 +1,3 @@
-# aad/non_transfer/non_transfer_learning.py
 import os
 import glob
 import torch
@@ -9,10 +8,19 @@ import yaml
 import numpy as np
 from sklearn import metrics
 from tqdm import tqdm
-from aad.utils import setup_logger, save_pickle, load_pickle, file_to_vector_array, list_to_vector_array, dataset_generator, Autoencoder
+from baseline.utils import (
+    setup_logger,
+    save_pickle,
+    load_pickle,
+    file_to_vector_array,
+    list_to_vector_array,
+    dataset_generator,
+    Autoencoder
+)
 
 def main():
-    with open(os.path.join("config", "non_transfer_learning.yaml")) as f:
+    # config 폴더 내의 non_transfer_learning.yaml 파일을 읽어옵니다.
+    with open(os.path.join("config", "non_transfer_learning.yaml"), encoding='utf-8') as f:
         config = yaml.safe_load(f)
     
     logger = setup_logger("non_transfer_learning_torch.log")
@@ -25,17 +33,24 @@ def main():
     result_file = os.path.join(config["result_directory"], config["result_file"])
     results = {}
     
+    # base_directory 아래의 모든 DB/기계/ID 폴더를 검색합니다.
+    # 예: /home/sh/AudioAnomalyDetector/sample_data/DB1/machine1/id_00
     dirs = sorted(glob.glob(os.path.join(base_directory, "*", "*", "*")))
+    if not dirs:
+        logger.error("No target directories found under %s", base_directory)
+        return
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
     for dir_idx, target_dir in enumerate(dirs):
         print("\n===========================")
         print(f"[{dir_idx+1}/{len(dirs)}] {target_dir}")
         
+        # 경로 예: /home/sh/AudioAnomalyDetector/sample_data/DB1/machine1/id_00
         db = os.path.basename(os.path.dirname(os.path.dirname(target_dir)))
         machine_type = os.path.basename(os.path.dirname(target_dir))
         machine_id = os.path.basename(target_dir)
         
+        # 피클 파일 이름 설정 (재사용)
         train_pickle = os.path.join(config["pickle_directory"], f"train_{machine_type}_{machine_id}_{db}.pickle")
         eval_files_pickle = os.path.join(config["pickle_directory"], f"eval_files_{machine_type}_{machine_id}_{db}.pickle")
         eval_labels_pickle = os.path.join(config["pickle_directory"], f"eval_labels_{machine_type}_{machine_id}_{db}.pickle")
@@ -45,18 +60,23 @@ def main():
             eval_files = load_pickle(eval_files_pickle, logger)
             eval_labels = load_pickle(eval_labels_pickle, logger)
         else:
-            train_files, train_labels, eval_files, eval_labels = dataset_generator(target_dir,
-                                                                                  normal_dir_name="normal",
-                                                                                  abnormal_dir_name="abnormal",
-                                                                                  ext="wav",
-                                                                                  logger=logger)
-            train_data = list_to_vector_array(train_files,
-                                              n_mels=config["feature"]["n_mels"],
-                                              frames=config["feature"]["frames"],
-                                              n_fft=config["feature"]["n_fft"],
-                                              hop_length=config["feature"]["hop_length"],
-                                              power=config["feature"]["power"],
-                                              logger=logger)
+            # dataset_generator 함수는 target_dir 내의 normal/ 및 abnormal/ 폴더에서 데이터를 수집합니다.
+            train_files, train_labels, eval_files, eval_labels = dataset_generator(
+                target_dir,
+                normal_dir_name="normal",
+                abnormal_dir_name="abnormal",
+                ext="wav",
+                logger=logger
+            )
+            train_data = list_to_vector_array(
+                train_files,
+                n_mels=config["feature"]["n_mels"],
+                frames=config["feature"]["frames"],
+                n_fft=config["feature"]["n_fft"],
+                hop_length=config["feature"]["hop_length"],
+                power=config["feature"]["power"],
+                logger=logger
+            )
             save_pickle(train_pickle, train_data, logger)
             save_pickle(eval_files_pickle, eval_files, logger)
             save_pickle(eval_labels_pickle, eval_labels, logger)
@@ -109,18 +129,22 @@ def main():
         model_path = os.path.join(model_directory, f"model_{machine_type}_{machine_id}_{db}.pt")
         torch.save(model.state_dict(), model_path)
         print("Model saved to:", model_path)
+        logger.info("Model saved to: %s", model_path)
         
+        # 평가: 각 eval 파일에 대해 재구성 오차(MSE)를 계산하여 anomaly score로 사용
         y_pred = []
         model.eval()
         for file in tqdm(eval_files, desc="Evaluating", leave=False):
             try:
-                data = file_to_vector_array(file,
-                                            n_mels=config["feature"]["n_mels"],
-                                            frames=config["feature"]["frames"],
-                                            n_fft=config["feature"]["n_fft"],
-                                            hop_length=config["feature"]["hop_length"],
-                                            power=config["feature"]["power"],
-                                            logger=logger)
+                data = file_to_vector_array(
+                    file,
+                    n_mels=config["feature"]["n_mels"],
+                    frames=config["feature"]["frames"],
+                    n_fft=config["feature"]["n_fft"],
+                    hop_length=config["feature"]["hop_length"],
+                    power=config["feature"]["power"],
+                    logger=logger
+                )
                 if data.shape[0] == 0:
                     continue
                 data_tensor = torch.tensor(data, dtype=torch.float32).to(device)

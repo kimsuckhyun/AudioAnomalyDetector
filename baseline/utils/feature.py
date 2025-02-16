@@ -1,7 +1,9 @@
+# aad/utils/feature.py
 import os
 import sys
 import glob
 import numpy as np
+import librosa         # 추가: librosa import
 from tqdm import tqdm
 from .io import file_load, demux_wav
 
