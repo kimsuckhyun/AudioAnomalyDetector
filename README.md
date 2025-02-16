@@ -53,8 +53,11 @@ AudioAnomalyDetector/
 
 ### 1. 환경 설정
 
-먼저, `requirements.txt`에 있는 패키지들을 설치합니다:
-
+먼저, cuda 버전에 맞는 torch를 설치합니다.
+```bash
+pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+```
+`requirements.txt`에 있는 패키지들을 설치합니다:
 ```bash
 pip install -r requirements.txt
 ```
