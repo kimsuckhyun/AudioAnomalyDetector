@@ -1,0 +1,32 @@
+# 데이터셋의 기본 디렉토리 경로 : 학습 데이터와 평가 데이터가 저장된 기본 디렉토리
+base_directory : ../sample_data
+
+# 피클 데이터를 저장할 디렉토리 경로 : 모델 가중치나 중간 결과를 저장한다.
+pickle_directory: ./pickle_non
+
+# 학습된 모델을 저장할 디렉토리 경로 : 모델의 아키텍처와 가중치 등이 저장된다.
+model_directory: ./model_non
+
+# 결과 파일을 저장할 디렉토리 경로 : 모델 학습결과나 평가결과를 저장한다.
+result_directory: ./result_non
+
+# 최종 결과를 저장할 디렉토리 경로 : 학습결과가 평가결과가 YAML 형식으로 여기에 저장된다.
+result_file: result_non.yaml
+
+# 데이터 처리 및 특징 추출에 대한 설정
+feature:
+  n_mels: 64
+  frames : 5
+  n_fft: 1024
+  hop_length: 512
+  power: 2.0
+
+fit:
+  compile:
+    optimizer : adam
+    loss : mean_squared_error
+  epochs : 50
+  batch_size : 512
+  shuffle : True
+  validation_split : 0.1
+  verbose : 1
