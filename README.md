@@ -89,6 +89,7 @@ Non-transfer 학습 및 평가는 `baseline/non_transfer/non_transfer_learning.p
 ```bash
 python -m baseline.non_transfer.non_transfer_learning
 ```
+![image](https://github.com/user-attachments/assets/fb584135-d181-4bc3-bf53-ed9426a3b897)
 
 ### 5. 오디오 시각화 (Streamlit 앱)
 
