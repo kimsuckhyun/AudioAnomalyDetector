@@ -1,11 +1,14 @@
-# AudioAnomalyDetector
-An end-to-end solution for detecting anomalies in industrial machine sounds. This project utilizes advanced machine learning methods to analyze acoustic signals, aiming to improve fault detection and maintenance efficiency.
+아래는 파일 구조를 포함하여 정리한 README 예시입니다. 필요에 따라 수정해서 사용하세요.
+
+---
 
 ```markdown
 # AudioAnomalyDetector
 
+An end-to-end solution for detecting anomalies in industrial machine sounds. This project utilizes advanced machine learning methods to analyze acoustic signals, aiming to improve fault detection and maintenance efficiency.
+
 이 프로젝트는 오디오 이상 탐지(Anomaly Detection)를 위한 모델 학습 및 평가 코드를 포함하고 있습니다.  
-주요 기능은 다음과 같습니다.
+주요 기능은 다음과 같습니다:
 
 - **Pretrain**:  
   여러 dB 레벨 및 여러 장치(예: fan, valve, slider, pump)와 ID별로 오토인코더를 학습하여 모델 가중치를 저장합니다.
@@ -21,7 +24,7 @@ An end-to-end solution for detecting anomalies in industrial machine sounds. Thi
 
 ## 폴더 구조
 
-프로젝트의 주요 폴더 구조 예시는 다음과 같습니다:
+프로젝트의 주요 폴더 구조는 아래와 같습니다:
 
 ```
 AudioAnomalyDetector/
@@ -55,7 +58,7 @@ AudioAnomalyDetector/
 
 ### 1. 환경 설정
 
-먼저, `requirements.txt`에 있는 패키지들을 설치합니다.
+먼저, `requirements.txt`에 있는 패키지들을 설치합니다:
 
 ```bash
 pip install -r requirements.txt
@@ -83,7 +86,7 @@ python -m baseline.transfer.transfer_pretrain
 
 ### 4. Non-transfer 실행
 
-Non-transfer 학습 및 평가는 `baseline/non_transfer/non_transfer_learning.py`에서 진행합니다.
+Non-transfer 학습 및 평가는 `baseline/non_transfer/non_transfer_learning.py`에서 진행합니다:
 
 ```bash
 python -m baseline.non_transfer.non_transfer_learning
@@ -92,11 +95,11 @@ python -m baseline.non_transfer.non_transfer_learning
 ### 5. 오디오 시각화 (Streamlit 앱)
 
 로컬 오디오 파일을 시각화하려면,  
-`baseline/utils/visualization.py` 모듈을 기반으로 작성된 Streamlit 앱을 실행합니다.
-
-예시: `streamlit_app.py` (프로젝트 루트에 작성)
+`baseline/utils/visualization.py` 모듈을 기반으로 작성된 Streamlit 앱을 실행합니다.  
+예시로 `streamlit_app.py`를 프로젝트 루트에 작성한 경우:
 
 ```python
+import os
 import streamlit as st
 from baseline.utils.visualization import streamlit_audio_visualization
 
@@ -127,7 +130,7 @@ if __name__ == "__main__":
     main()
 ```
 
-Streamlit 앱을 실행하려면 다음 명령어를 사용합니다:
+Streamlit 앱을 실행하려면 다음 명령어를 사용하세요:
 
 ```bash
 streamlit run streamlit_app.py
@@ -136,6 +139,10 @@ streamlit run streamlit_app.py
 ## 주의사항
 
 - YAML 파일에 설정된 경로(예: base_directory, pickle_directory 등)가 실제 디렉토리 구조와 일치하는지 확인하세요.
-- 대용량 중간 산출물(예: pickle 파일 등)은 필요시 .gitignore에 추가하여 Git에 포함되지 않도록 관리하는 것이 좋습니다.
+- 대용량 중간 산출물(예: pickle 파일 등)은 필요시 `.gitignore`에 추가하여 Git에 포함되지 않도록 관리하는 것이 좋습니다.
 - Git history에서 대용량 파일을 제거할 때는 Git LFS나 BFG Repo-Cleaner를 사용하여 기록을 재작성해야 합니다.
+```
 
+---
+
+이 README 파일을 프로젝트의 `README.md`에 복사해서 사용하면 됩니다. 필요에 따라 경로나 설명을 수정하세요.
