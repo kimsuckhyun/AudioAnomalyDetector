@@ -1,5 +1,5 @@
 # 데이터셋의 기본 디렉토리 경로 : 학습 데이터와 평가 데이터가 저장된 기본 디렉토리
-base_directory : ../sample_data
+base_directory : ./sample_data
 
 # 피클 데이터를 저장할 디렉토리 경로 : 모델 가중치나 중간 결과를 저장한다.
 pickle_directory: ./pickle_transfer_pretrain_v1
