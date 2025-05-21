@@ -8,7 +8,7 @@ An end-to-end, modular PyTorch pipeline for detecting anomalies in machine sound
 
 We submitted our work **"Multi-Modal Audio Anomaly Detection with Enhanced DeSpaWN, Masked Audio Transformers, and VQ-VAE Fusion"** to the *2025 Korea Computer Conference (KCC)*.
 
-You can download the full paper here: [KCC 2025 Audio Anomaly Detection Paper (PDF)](./pdf/self_supervised_wavelet_transformer_fusion_industrial_audio_anomaly_detection.pdf)
+You can download the full paper here: [KCC 2025 Audio Anomaly Detection Paper (PDF)](pdf/self_supervised_wavelet_transformer_fusion_industrial_audio_anomaly_detection.pdf)
 
 ---
 
